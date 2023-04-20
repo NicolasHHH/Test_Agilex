@@ -1,0 +1,39 @@
+<?xml version="1.0" ?>
+<sdf version="1.4">
+  <world name="default">
+    <!-- A global light source -->
+    <include>
+      <uri>model://sun</uri>
+    </include>
+
+    <!-- A ground plane -->
+    <include>
+      <uri>model://ground_plane</uri>
+    </include>
+
+    <terrain name="custom_terrain">
+    <heightmap>
+      <uri>file:///home/hty/Downloads/Geo/QGIS_output.tif</uri>
+      <size>200 200 10</size>
+      <pos>0 0 0</pos>
+    </heightmap>
+      <material>
+        <diffuse>1 1 1</diffuse>
+        <specular>0.1 0.1 0.1</specular>
+        <pbr>
+          <metal>
+            <albedo_map>file:///home/hty/Downloads/Geo/layout.png</albedo_map>
+          </metal>
+        </pbr>
+      </material>
+    </terrain>
+
+    <!-- Physics -->
+    <physics type='ode'>
+      <max_step_size>0.001</max_step_size>
+      <real_time_factor>1</real_time_factor>
+      <real_time_update_rate>1000</real_time_update_rate>
+      <gravity>0 0 -9.8</gravity>
+    </physics>
+  </world>
+</sdf>
