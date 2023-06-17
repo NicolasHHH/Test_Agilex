@@ -47,3 +47,5 @@
 TODOs: 
 
 - odom / world->base_link tf
+- ground truths poses formatting
+- finetune imu, gps, gt frequencies
