@@ -1,0 +1,3 @@
+<launch>
+    <node name="scout_publish_transform" pkg="odom_publish" type="scout_publish_transform.py" output="screen"/>
+</launch>

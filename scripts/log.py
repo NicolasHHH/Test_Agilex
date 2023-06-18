@@ -151,7 +151,7 @@ def listener():
     rospy.Subscriber("gazebo/model_states", ModelStates, gms_callback, queue_size=1)
 
     # Set the rate for each callback
-    rospy.Timer(rospy.Duration(0.1), imu_timer_callback)
+    rospy.Timer(rospy.Duration(0.01), imu_timer_callback)
     rospy.Timer(rospy.Duration(0.1), gps_timer_callback)
     rospy.Timer(rospy.Duration(0.1), gms_timer_callback)
 

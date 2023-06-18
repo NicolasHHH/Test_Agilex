@@ -12,13 +12,21 @@ find_package(catkin REQUIRED COMPONENTS
     geometry_msgs
     tf2 
     tf2_ros
+    message_generation
 )
+
+add_message_files(
+    FILES
+    uwb_data.msg
+)
+
 catkin_package(
   INCLUDE_DIRS include
 #   LIBRARIES 
   CATKIN_DEPENDS roscpp sensor_msgs
 #   DEPENDS Boost
 )
+
 
 ###########
 ## Build ##

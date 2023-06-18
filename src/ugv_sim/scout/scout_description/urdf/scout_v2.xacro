@@ -106,7 +106,7 @@
             <plugin filename="libgazebo_ros_imu_sensor.so" name="imu_plugin">
                 <topicName>imu</topicName>
                 <bodyName>imu_link</bodyName>
-                <updateRateHZ>10.0</updateRateHZ>
+                <updateRateHZ>100.0</updateRateHZ>
                 <gaussianNoise>0.0</gaussianNoise>
                 <xyzOffset>0 0 0</xyzOffset>
                 <rpyOffset>0 0 0</rpyOffset>
@@ -124,14 +124,6 @@
             <child link="imu_link" />
         </joint>
 
-
-    <!-- For testing, hang the robot up in the air -->
-    <!-- <link name="world" />
-    <joint name="world_to_base_link=" type="fixed">
-        <origin xyz="0 0 0.5" rpy="0 0 0" />
-        <parent link="world"/>
-        <child link="base_link"/>
-    </joint> -->
 
     <!-- Scout wheel macros -->
     <!-- wheel labeled from 0 to 3, conter-clockwise, starting from front right wheel -->

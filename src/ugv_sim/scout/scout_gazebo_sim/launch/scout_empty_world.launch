@@ -3,7 +3,7 @@
     <arg name="robot_namespace" default="/"/>
 
     <!-- Load the surrounding environment into Gazebo -->
-    <arg name="world_name" default="$(find scout_gazebo_sim)worlds/weston_robot_empty.world"/>
+    <arg name="world_name" default="$(find scout_gazebo_sim)/worlds/weston_robot_empty.world"/>
     <include file="$(find gazebo_ros)/launch/empty_world.launch">
         <arg name="world_name" value="$(arg world_name)"/>
         <arg name="paused" value="false"/>
@@ -16,8 +16,14 @@
       <!--include file="$(find gazebo_ros)/launch/empty_world.launch">
         <arg name="gui" default="true"/>
   </include-->
-    
     <include file="$(find scout_gazebo_sim)/launch/spawn_scout_v2.launch"></include>
+
+
+    <node pkg="tf" type="static_transform_publisher" name="uwb_anchor_0x6e36" args="1.4 2.0 0.0 0 0 0 1 world uwb_anchor_0 100" />
+    <node pkg="tf" type="static_transform_publisher" name="uwb_anchor_0x6e33" args="-1.4 2.0 0.0 0 0 0 1 world uwb_anchor_1 100" />
+    <node pkg="tf" type="static_transform_publisher" name="uwb_anchor_0x6e49" args="1.4 -2.0 0.0 0 0 0 1 world uwb_anchor_2 100" />
+    <node pkg="tf" type="static_transform_publisher" name="uwb_anchor_0x6e30" args="-1.4 -2.0 0.0 0 0 0 1 world uwb_anchor_3 100" />
         
     <node name="rviz" pkg="rviz" type="rviz" args="-d $(find scout_description)/rviz/navigation.rviz" />
+    
 </launch>
