@@ -95,7 +95,7 @@
                 <inertia ixx="2.288641" ixy="0" ixz="0" iyy="5.103976" iyz="0" izz="3.431465" />
             </inertial>
         </link>
-
+<!--
         <gazebo reference="imu_link">
             <gravity>true</gravity>
             <sensor name="imu_sensor" type="imu">
@@ -116,6 +116,18 @@
             <pose>0 0 0 0 0 0</pose>
             </sensor>
         </gazebo>
+    -->
+        <gazebo>
+            <plugin name="imu_plugin" filename="libgazebo_ros_imu.so">
+                <alwaysOn>true</alwaysOn>
+                <bodyName>imu_link</bodyName>
+                <topicName>imu</topicName>
+                <serviceName>imu_service</serviceName>
+                <gaussianNoise>0.0</gaussianNoise>
+                <updateRate>100.0</updateRate>
+            </plugin>
+        </gazebo>
+
 
 
         <joint name="imu_joint" type="fixed">

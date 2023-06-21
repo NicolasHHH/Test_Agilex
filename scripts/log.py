@@ -146,13 +146,13 @@ def listener():
     rospy.init_node('imu_listener', anonymous=True)
 
     # Set the rate for each callback
-    rospy.Subscriber("imu", Imu, imu_callback)
-    rospy.Subscriber("gps/fix", NavSatFix, gps_callback)
+    rospy.Subscriber("imu", Imu, imu_callback, queue_size=1)
+    rospy.Subscriber("gps/fix", NavSatFix, gps_callback, queue_size=1)
     rospy.Subscriber("gazebo/model_states", ModelStates, gms_callback, queue_size=1)
 
     # Set the rate for each callback
     rospy.Timer(rospy.Duration(0.001), imu_timer_callback)
-    rospy.Timer(rospy.Duration(0.1), gps_timer_callback)
+    rospy.Timer(rospy.Duration(0.01), gps_timer_callback)
     rospy.Timer(rospy.Duration(0.1), gms_timer_callback)
 
     rospy.spin()
