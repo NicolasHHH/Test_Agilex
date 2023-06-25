@@ -22,7 +22,6 @@ add_message_files(
 
 catkin_package(
   INCLUDE_DIRS include
-#   LIBRARIES 
   CATKIN_DEPENDS roscpp sensor_msgs
 #   DEPENDS Boost
 )
