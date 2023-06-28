@@ -1,5 +1,11 @@
 # Scout 二次开发
 
+## 编译
+
+      cd Test_Agilex/
+      catkin_make
+      source devel/setup.bash
+      rosrun .. / roslaunch .. 
 
 ## 融合定位测试
 
