@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+
+<launch>
+    <!-- Launch the differential_drive_control node -->
+    <node name="differential_drive_control" pkg="scout_navigation" type="diff_pure_pursuit" output="screen">
+        <param name="robot_speed" value="0.2"/>
+        <param name="k" value="1"/>
+    </node>
+
+    <!-- launch mapviz visualization tool -->
+    <node pkg="mapviz" type="mapviz" name="mapviz" />
+
+    <node pkg="swri_transform_util" type="initialize_origin.py" name="initialize_origin" >
+        <param name="local_xy_frame" value="/world"/>
+
+        <!-- set to auto to use the first GPS fix -->
+        <param name="local_xy_origin" value="auto"/>
+        <rosparam param="local_xy_origins">
+            [{ name: swri,
+            latitude: 49.99196669,
+            longitude: 8.61370577,
+            altitude: 520.719,
+            heading: 0.0},
+
+            { name: back_40,
+            latitude: 29.447507,
+            longitude: -98.629367,
+            altitude: 200.0,
+            heading: 0.0}]
+        </rosparam>
+        <remap from="/fix" to="/gps/fix"/>
+    </node>
+
+    <!-- world to map(wgs84) -->
+    <node pkg="tf" type="static_transform_publisher" name="worldmap" args="0 0 0 0 0 0 /world /map 100" />
+    <node pkg="tf" type="static_transform_publisher" name="swri_transform" args="0 0 0 0 0 0 /world /origin 100"/>
+</launch>
+
