@@ -32,6 +32,9 @@ std::vector<std::pair<double, double>> waypoints;
 // Index of the current target waypoint
 size_t waypoint_index = 0;
 
+// waypoint step (points)
+int waypoint_step = 10;
+
 // Robot speed
 double robot_speed = 0.5;
 

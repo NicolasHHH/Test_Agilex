@@ -8,6 +8,7 @@
 #include <sensor_msgs/NavSatFix.h>
 #include <sensor_msgs/Imu.h>
 #include <geometry_msgs/Twist.h>
+#include <geometry_msgs/PoseStamped.h>
 #include <fstream>
 #include <vector>
 #include <string>
@@ -68,19 +69,23 @@ int main(int argc, char **argv) {
 
     nh.getParam("robot_speed", robot_speed);
     nh.getParam("k", k);
+    nh.getParam("waypoint_step", waypoint_step);
 
     // Read waypoints from the csv file
     readWaypoints(trajectory_path);
 
     // Subscribe to the GPS topic
-    ros::Subscriber gps_sub = nh.subscribe("/gps/fix", 20, gpsCallback);
-    ros::Subscriber imu = nh.subscribe("/imu", 20, imuCallback);
+    ros::Subscriber gps_sub = nh.subscribe("/gps/fix", 2, gpsCallback);
+    ros::Subscriber imu = nh.subscribe("/imu", 2, imuCallback);
 
     // Advertise the cmd_vel topic for the differential drive robot
-    ros::Publisher pub = nh.advertise<geometry_msgs::Twist>("/cmd_vel", 10);
+    ros::Publisher pub = nh.advertise<geometry_msgs::Twist>("/cmd_vel", 5);
+
+    // Advertise the move base goal topic
+    ros::Publisher goal_pub = nh.advertise<geometry_msgs::PoseStamped>("/move_base_simple/goal", 5);
 
     // Control loop at 10 Hz
-    ros::Rate loop_rate(10);
+    ros::Rate loop_rate(50);
 
     double reference_lon = waypoints[0].first;
     double reference_lat = waypoints[0].second;
@@ -106,6 +111,18 @@ int main(int argc, char **argv) {
 
         ROS_INFO("Current Position: %f, %f", cartesianPosition[0], cartesianPosition[1]);
         ROS_INFO("Current Waypoint: %f, %f", cartesianWaypoint[0], cartesianWaypoint[1]);
+
+        // publish move base goal
+        geometry_msgs::PoseStamped goal;
+        goal.header.frame_id = "world";
+        goal.header.stamp = ros::Time::now();
+        goal.pose.position.x = cartesianWaypoint[0];
+        goal.pose.position.y = cartesianWaypoint[1];
+        goal.pose.orientation.w = 1.0;
+        goal.pose.orientation.x = 0.0;
+        goal.pose.orientation.y = 0.0;
+        goal.pose.orientation.z = 0.0;
+        goal_pub.publish(goal);
 
         // Calculate the distance and bearing to the waypoint
         double distance = sqrt(pow(cartesianWaypoint[0] - cartesianPosition[0], 2) +

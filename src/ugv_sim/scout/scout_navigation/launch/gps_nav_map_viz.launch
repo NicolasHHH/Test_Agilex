@@ -3,8 +3,9 @@
 <launch>
     <!-- Launch the differential_drive_control node -->
     <node name="differential_drive_control" pkg="scout_navigation" type="diff_pure_pursuit" output="screen">
-        <param name="robot_speed" value="0.2"/>
-        <param name="k" value="1"/>
+        <param name="robot_speed" value="10"/>
+        <param name="k" value="20"/>
+        <param name="waypoint_step" value="10"/>
     </node>
 
     <!-- launch mapviz visualization tool -->

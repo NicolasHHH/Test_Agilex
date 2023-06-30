@@ -27,8 +27,11 @@ if __name__ == "__main__":
 
     while not rospy.is_shutdown():
         result = get_model_state(model)
-        odom.pose.pose = result.pose
+        odom.pose.pose.position.x = - result.pose.position.y
+        odom.pose.pose.position.y = result.pose.position.x
+        odom.pose.pose.position.z = result.pose.position.z
         odom.twist.twist = result.twist
+
         odom_pub.publish(odom)
 
         # publish a tf transform from world to base_link
