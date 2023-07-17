@@ -1,0 +1,64 @@
+\documentclass{article}
+
+\usepackage{amsmath}
+
+\begin{document}
+
+    \title{Linear Quadratic Regulator}
+    \date{\today}
+
+    \maketitle
+
+    \section{Introduction}
+
+    A Linear Quadratic Regulator (LQR) is an optimal control algorithm used in control theory. The method involves calculating a control signal that minimizes a cost function, typically composed of state error and control effort.
+
+    \section{Algorithm Steps}
+
+    \begin{enumerate}
+
+        \item \textbf{System Definition}
+
+        We start with a linear system of the form:
+        \begin{align*}
+            \dot{x} &= Ax + Bu \\
+            y &= Cx + Du
+        \end{align*}
+        where $x$ is the state vector, $u$ is the control input vector, $A$ and $B$ are system matrices, and $y$ is the output.
+
+        \item \textbf{Cost Function Definition}
+
+        The cost function to minimize is:
+        \[
+            J = \int_{0}^{\infty} (x^TQx + u^TRu) \, dt
+        \]
+        where $Q$ and $R$ are weight matrices that decide the importance of state error and control effort.
+
+        \item \textbf{Solving the Riccati Equation}
+
+        The solution to the LQR problem is given by the Riccati equation:
+        \[
+            A^TPA - P - A^TPB(B^TPB + R)^{-1}B^TPA + Q = 0
+        \]
+
+        \item \textbf{Iterative Solution}
+
+        Iteratively solve the Riccati equation until $P$ converges within some small tolerance $\varepsilon$. Then compute the feedback gain:
+        \[
+            K = (B^TPB + R)^{-1}B^TPA
+        \]
+
+        \item \textbf{Control Signal Calculation}
+
+        Calculate the control signal as:
+        \[
+            u = -Kx
+        \]
+
+        \item \textbf{System Control}
+
+        Apply the control signal $u$ to the system. The control is designed to minimize the cost function while driving the system towards the desired state.
+
+    \end{enumerate}
+
+\end{document}

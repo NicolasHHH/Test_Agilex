@@ -41,7 +41,6 @@ void readWaypoints(std::string path) {
     }
     // print the number of waypoints
     std::cout << "trajectory loaded: " << count << " points"<< std::endl;
-
 }
 
 // Callback function for the GPS subscription
