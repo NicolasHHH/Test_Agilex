@@ -7,6 +7,18 @@
       source devel/setup.bash
       rosrun .. / roslaunch .. 
 
+## ros依赖
+substitue `noetic` to your own ros-distro : (eg. `melodic`/`kinetic`)
+
+      # for gazebo simulation of the vehicle and its control (through the topic cmd_vel) 
+      sudo apt-get install ros-noetic-ros-control ros-noetic-ros-controllers
+
+      # gps plugin in gazebo
+      sudo apt-get intall ros-noetic-hector-gazebo-plugins
+
+      # <optional> (keyboard control)
+      sudo apt-get install ros-noetic-teleop-twist-keyboard
+
 ## 融合定位测试
 
 ### 传感器
